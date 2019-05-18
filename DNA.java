@@ -15,26 +15,33 @@ import java.util.Scanner;
 public class DNA {
 
   public static void main(String args[]) {
-    Scanner input = new Scanner(System.in);
+    Scanner in = new Scanner(System.in);
     String structure = options().toUpperCase();
+    String input="", output;
 
     switch(structure) {
       case "DNA":
       case "RNA":
         System.out.print("Enter arbitrary ACSII text: ");
-        String sequence = input.nextLine();
-        encode(sequence, structure);
+        input = in.nextLine();
+        output = encode(input.toUpperCase(), structure);
+      break;
+      case "CDNA":
+        System.out.print("Enter complementary strand of DNA: ");
+        input = in.nextLine();
+        output = decode(input.toUpperCase());
       break;
 
       default:
         System.out.println("Please enter the correct options...");
+        output = "Error: Incorrect input!!!";
       break;
     }
 
-
+    System.out.println(input + ": " + output);
   }
 
-  public static void encode(String input, String structure) {
+  public static String encode(String input, String structure) {
     String result = "";
     int acsiiValue;
 
@@ -48,7 +55,7 @@ public class DNA {
     if(structure.equals("RNA"))
       result = result.replace('T', 'U');
 
-    System.out.println(input + ": " + result);
+    return result;
   }
 
   // Convert binary into sequence DNA
@@ -82,7 +89,38 @@ public class DNA {
         break;
       }
     }
+    return result;
+  }
 
+  public static String decode(String strand) {
+    String result = "", binary = "";
+
+    for(int c = 0; c < strand.length(); c++) {
+      // Complement the characters
+      switch(strand.charAt(c)) {
+        case 'A':
+          binary += "01";
+        break;
+        case 'T':
+          binary += "00";
+        break;
+        case 'G':
+          binary += "11";
+        break;
+        case 'C':
+          binary += "10";
+        break;
+        default:
+          System.out.println("Cannot find DNA base...");
+        break;
+      }
+
+      if((c+1)%4==0) {
+        System.out.println(Integer.parseInt(binary, 2) + ": " + binary);
+        result += (char)Integer.parseInt(binary, 2);
+        binary = "";  // new strand of DNA
+      }
+    }
     return result;
   }
 
@@ -90,6 +128,7 @@ public class DNA {
     Scanner input = new Scanner(System.in);
     System.out.println("Type \"DNA\": to view structure in DNA");
     System.out.println("Type \"RNA\": to view structure in RNA");
+    System.out.println("Type \"CDNA\": to complement DNA");
 
 
     return input.nextLine();
