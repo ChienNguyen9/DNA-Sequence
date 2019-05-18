@@ -24,12 +24,17 @@ public class DNA {
       case "RNA":
         System.out.print("Enter arbitrary ACSII text: ");
         input = in.nextLine();
-        output = encode(input.toUpperCase(), structure);
+        output = encode(input, structure);
+      break;
+      case "IDEN":
+        System.out.print("Enter encoded DNA as ASCII: ");
+        input = in.nextLine();
+        output = identify(input.toUpperCase());
       break;
       case "CDNA":
         System.out.print("Enter complementary strand of DNA: ");
         input = in.nextLine();
-        output = decode(input.toUpperCase());
+        output = decode(input);
       break;
 
       default:
@@ -38,7 +43,7 @@ public class DNA {
       break;
     }
 
-    System.out.println(input + ": " + output);
+    System.out.println("Input: "+input+"\nOutput: "+output);
   }
 
   public static String encode(String input, String structure) {
@@ -116,7 +121,6 @@ public class DNA {
       }
 
       if((c+1)%4==0) {
-        System.out.println(Integer.parseInt(binary, 2) + ": " + binary);
         result += (char)Integer.parseInt(binary, 2);
         binary = "";  // new strand of DNA
       }
@@ -124,10 +128,26 @@ public class DNA {
     return result;
   }
 
+  public static String identify(String input) {
+    String output = "";
+    for(int i = 0; i < input.length(); i++) {
+      if(input.charAt(i)=='A' || input.charAt(i)=='T' ||
+        input.charAt(i)=='G' || input.charAt(i)=='C') {
+        output += "DNA "+input.charAt(i)+" found at index "+i+".\n";
+      }
+    }
+
+    if(output.equals(""))
+      output = "(-1) Does not exist";
+
+    return output;
+  }
+
   public static String options() {
     Scanner input = new Scanner(System.in);
     System.out.println("Type \"DNA\": to view structure in DNA");
     System.out.println("Type \"RNA\": to view structure in RNA");
+    System.out.println("Type \"IDEN\": to identify ACSII as DNA");
     System.out.println("Type \"CDNA\": to complement DNA");
 
 
