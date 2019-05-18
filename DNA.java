@@ -2,6 +2,9 @@ import java.util.Scanner;
 
 
 /*
+  Useful resources:
+  - https://www.aleph.se/Trans/Individual/Body/ascii.html
+
   DNA in binary
     00 -> A
     01 -> T
@@ -11,10 +14,20 @@ import java.util.Scanner;
 
 public class DNA {
 
-  public static void main() {
+  public static void main(String args[]) {
     Scanner input = new Scanner(System.in);
+    String structure = "";
+    options();
+    structure = input.nextLine();
 
+    switch(structure) {
+      case "DNA":
 
+      break;
+
+      default:
+        System.out.println("Please enter the correct options...");
+    }
 
 
   }
@@ -24,7 +37,7 @@ public class DNA {
   }
 
   public static void options() {
-    System.out.println();
+    System.out.println("Type \"DNA\": to view structure in DNA");
   }
 
 }
