@@ -16,14 +16,14 @@ public class DNA {
 
   public static void main(String args[]) {
     Scanner input = new Scanner(System.in);
-    String structure = options();
-    //String result = ""; // store the answer
+    String structure = options().toUpperCase();
 
     switch(structure) {
       case "DNA":
-        System.out.print("Enter arbitrary ACSII text for DNA: ");
+      case "RNA":
+        System.out.print("Enter arbitrary ACSII text: ");
         String sequence = input.nextLine();
-        encode(sequence);
+        encode(sequence, structure);
       break;
 
       default:
@@ -34,7 +34,7 @@ public class DNA {
 
   }
 
-  public static void encode(String input) {
+  public static void encode(String input, String structure) {
     String result = "";
     int acsiiValue;
 
@@ -43,6 +43,11 @@ public class DNA {
       StringBuilder binary = new StringBuilder(Integer.toBinaryString(acsiiValue));
       result += convertBinaryToDNA(binary);
     }
+
+    // RNA replace T with U
+    if(structure.equals("RNA"))
+      result = result.replace('T', 'U');
+
     System.out.println(input + ": " + result);
   }
 
@@ -76,7 +81,6 @@ public class DNA {
           System.out.println("Binary is not found!!!");
         break;
       }
-
     }
 
     return result;
