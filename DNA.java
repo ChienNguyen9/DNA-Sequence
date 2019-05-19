@@ -17,7 +17,7 @@ public class DNA {
   public static void main(String args[]) {
     Scanner in = new Scanner(System.in);
     String structure = options().toUpperCase();
-    String input="", output;
+    String input="", output="";
 
     switch(structure) {
       case "DNA":
@@ -36,7 +36,10 @@ public class DNA {
         input = in.nextLine();
         output = decode(input);
       break;
-
+      case "LCS":
+        System.out.print("Enter two strands of DNA: ");
+        input = in.nextLine();
+        break;
       default:
         System.out.println("Please enter the correct options...");
         output = "Error: Incorrect input!!!";
@@ -149,7 +152,7 @@ public class DNA {
     System.out.println("Type \"RNA\": to view structure in RNA");
     System.out.println("Type \"IDEN\": to identify ACSII as DNA");
     System.out.println("Type \"CDNA\": to complement DNA");
-
+    System.out.println("Type \"LCS\": to find the longest common subsequence");
 
     return input.nextLine();
   }
